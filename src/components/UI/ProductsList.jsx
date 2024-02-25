@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 function ProductsList({ data }) {
   return (
     <>
-      {data.map((item) => (
+      {data?.map((item) => (
         <ProductCard item={item} />
       ))}
     </>
