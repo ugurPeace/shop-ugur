@@ -5,6 +5,7 @@ import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
 import { motion } from "framer-motion";
 import { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const nav__links = [
   {
@@ -23,6 +24,7 @@ const nav__links = [
 
 function Header() {
   const headerRef = useRef(null);
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
 
   const menuRef = useRef(null);
 
@@ -82,7 +84,7 @@ function Header() {
               </span>
               <span className="cart__icon">
                 <i class="ri-shopping-bag-line"></i>
-                <span className="badge">2</span>
+                <span className="badge">{totalQuantity}</span>
               </span>
               <span>
                 <motion.img
