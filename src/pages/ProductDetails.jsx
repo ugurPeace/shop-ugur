@@ -6,7 +6,7 @@ import ProductsList from "../components/UI/ProductsList";
 import CommonSection from "../components/UI/CommonSection";
 import "../styles/product-details.css";
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../redux/slices/cartSlice";
 import { toast } from "react-toastify";
@@ -40,6 +40,14 @@ function ProductDetails() {
 
     const reviewUserName = reviewUser.current.value;
     const reviewUserMsg = reviewMsg.current.value;
+
+    const reviewObj = {
+      userName: reviewUserName,
+      text: reviewUserMsg,
+      rating,
+    };
+    console.log(reviewObj);
+    toast.success("Review submitted");
   };
 
   const addToCart = () => {
@@ -53,6 +61,10 @@ function ProductDetails() {
     );
     toast.success("Product added successfully");
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [product]);
 
   return (
     <Helmet title={productName}>
@@ -68,19 +80,19 @@ function ProductDetails() {
                 <h2>{productName}</h2>
                 <div className="product__rating d-flex align-items-center gap-5 mb-3">
                   <div>
-                    <span onClick={() => setRating(1)}>
+                    <span>
                       <i class="ri-star-s-fill"></i>
                     </span>
-                    <span onClick={() => setRating(2)}>
+                    <span>
                       <i class="ri-star-s-fill"></i>
                     </span>
-                    <span onClick={() => setRating(3)}>
+                    <span>
                       <i class="ri-star-s-fill"></i>
                     </span>
-                    <span onClick={() => setRating(4)}>
+                    <span>
                       <i class="ri-star-s-fill"></i>
                     </span>
-                    <span onClick={() => setRating(5)}>
+                    <span>
                       <i class="ri-star-half-s-line"></i>
                     </span>
                   </div>
@@ -149,24 +161,40 @@ function ProductDetails() {
                             type="text"
                             placeholder="Enter name"
                             ref={reviewUser}
+                            required
                           />
                         </div>
-                        <div className="form__group d-flex align-items-center gap-5">
-                          <span>
+                        <div className="form__group d-flex align-items-center gap-5 rating__group">
+                          <motion.span
+                            whileTap={{ scale: 1.2 }}
+                            onClick={() => setRating(1)}
+                          >
                             1<i class="ri-star-s-fill"></i>
-                          </span>
-                          <span>
+                          </motion.span>
+                          <motion.span
+                            whileTap={{ scale: 1.2 }}
+                            onClick={() => setRating(2)}
+                          >
                             2<i class="ri-star-s-fill"></i>
-                          </span>
-                          <span>
+                          </motion.span>
+                          <motion.span
+                            whileTap={{ scale: 1.2 }}
+                            onClick={() => setRating(3)}
+                          >
                             3<i class="ri-star-s-fill"></i>
-                          </span>
-                          <span>
+                          </motion.span>
+                          <motion.span
+                            whileTap={{ scale: 1.2 }}
+                            onClick={() => setRating(4)}
+                          >
                             4<i class="ri-star-s-fill"></i>
-                          </span>
-                          <span>
+                          </motion.span>
+                          <motion.span
+                            whileTap={{ scale: 1.2 }}
+                            onClick={() => setRating(5)}
+                          >
                             5<i class="ri-star-s-fill"></i>
-                          </span>
+                          </motion.span>
                         </div>
                         <div className="form__group">
                           <textarea
@@ -174,11 +202,16 @@ function ProductDetails() {
                             rows={4}
                             type="text"
                             placeholder="Review message"
+                            required
                           />
                         </div>
-                        <button type="submit" className="buy__btn">
+                        <motion.button
+                          whileTap={{ scale: 1.2 }}
+                          type="submit"
+                          className="buy__btn"
+                        >
                           Submit
-                        </button>
+                        </motion.button>
                       </form>
                     </div>
                   </div>
